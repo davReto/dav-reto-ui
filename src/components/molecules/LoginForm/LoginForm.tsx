@@ -1,10 +1,10 @@
 'use client';
+import React, { useState } from 'react';
+
 import { sendLogin } from '@/apis';
 import { IResponseUser } from '@/apis/sendLogin/login.interface';
 import { Input, Button } from '@/components/atoms';
-
-import React, { useState } from 'react';
-
+import { useRouter } from 'next/navigation';
 interface FormData {
   usuario: string;
   clave: string;
@@ -15,6 +15,7 @@ interface ILoginForm {
 }
 
 export const LoginForm: React.FC<ILoginForm> = ({ getUser }) => {
+  const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
     usuario: '',
     clave: '',
@@ -28,11 +29,18 @@ export const LoginForm: React.FC<ILoginForm> = ({ getUser }) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(formData);
-    const reponse = await sendLogin({
-      password: formData.clave,
-      userName: formData.usuario,
-    });
-    getUser(reponse);
+    try {
+      const reponse = await sendLogin({
+        password: formData.clave,
+        userName: formData.usuario,
+      });
+      getUser(reponse);
+      if (typeof window !== 'undefined') {
+        router.push('/otp');
+      }
+    } catch (error) {
+      console.error('Login Error:', error);
+    }
   };
 
   return (
