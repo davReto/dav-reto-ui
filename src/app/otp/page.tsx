@@ -1,15 +1,18 @@
 'use client';
-import { IResponseUser } from '@/apis/sendLogin/login.interface';
-import { LoginForm } from '@/components/molecules';
+import { OtpForm } from '@/components/molecules/OtpForm/OtpForm';
 
 export default function OtpPage() {
-  const getUser = (user: IResponseUser) => {
-    console.log(user);
+  const onVerifyOtp = (otp: string) => {
+    console.log('Verifying OTP:', otp);
+  };
+
+  const onResendOtp = () => {
+    console.log('Resending OTP');
   };
   return (
     <main>
       <div>
-        <LoginForm getUser={getUser} />
+        <OtpForm onVerifyOtp={onVerifyOtp} onResendOtp={onResendOtp} />
       </div>
     </main>
   );
