@@ -1,4 +1,5 @@
 'use client';
+import { sendLogin } from '@/apis';
 import { Input, Button } from '@/components/atoms';
 import React, { useState } from 'react';
 
@@ -21,6 +22,10 @@ export const LoginForm: React.FC = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(formData);
+    sendLogin({
+      password: formData.clave,
+      userName: formData.usuario,
+    });
   };
 
   return (

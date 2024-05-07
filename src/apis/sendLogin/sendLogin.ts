@@ -1,13 +1,9 @@
 import { msApiLogin } from '../msApiLogin';
-
-export interface ILoginBody {
-  userName: string;
-  password: string;
-}
+import { ILoginBody, IResponseUser } from './login.interface';
 
 export const sendLogin = async (body: ILoginBody) => {
   try {
-    const { data } = await msApiLogin().post<boolean>('/login', body);
+    const { data } = await msApiLogin().post<IResponseUser>('/login', body);
     return data;
   } catch (errorApi) {
     throw new Error('Error in login', errorApi as Error);
