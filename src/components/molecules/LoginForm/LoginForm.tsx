@@ -1,3 +1,4 @@
+'use client';
 import { Input, Button } from '@/components/atoms';
 import React, { useState } from 'react';
 
@@ -6,7 +7,7 @@ interface FormData {
   clave: string;
 }
 
-const LoginForm: React.FC = () => {
+export const LoginForm: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
     usuario: '',
     clave: '',
@@ -44,5 +45,3 @@ const LoginForm: React.FC = () => {
     </form>
   );
 };
-
-export default LoginForm;

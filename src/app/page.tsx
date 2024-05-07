@@ -1,10 +1,10 @@
-import styles from './page.module.css';
-
+'use client';
+import { LoginForm } from '@/components/molecules';
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>Hola</p>
+    <main>
+      <div>
+        <LoginForm />
       </div>
     </main>
   );
