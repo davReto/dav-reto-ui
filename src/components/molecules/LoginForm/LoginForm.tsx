@@ -1,6 +1,8 @@
 'use client';
 import { sendLogin } from '@/apis';
+import { IResponseUser } from '@/apis/sendLogin/login.interface';
 import { Input, Button } from '@/components/atoms';
+
 import React, { useState } from 'react';
 
 interface FormData {
@@ -8,7 +10,11 @@ interface FormData {
   clave: string;
 }
 
-export const LoginForm: React.FC = () => {
+interface ILoginForm {
+  getUser: (user: IResponseUser) => void;
+}
+
+export const LoginForm: React.FC<ILoginForm> = ({ getUser }) => {
   const [formData, setFormData] = useState<FormData>({
     usuario: '',
     clave: '',
@@ -19,13 +25,14 @@ export const LoginForm: React.FC = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(formData);
-    sendLogin({
+    const reponse = await sendLogin({
       password: formData.clave,
       userName: formData.usuario,
     });
+    getUser(reponse);
   };
 
   return (
